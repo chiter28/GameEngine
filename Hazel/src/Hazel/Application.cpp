@@ -14,10 +14,7 @@ namespace Hazel
 
 	void Application::Run()
 	{
-		while (true) {
-			printf("add");
-		}
+		while (true);
 	}
-
 
 }
