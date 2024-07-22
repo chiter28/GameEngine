@@ -9,3 +9,13 @@
 // --------Entry Point-------------
 #include "Hazel/EntryPoint.h"
 
+
+
+/*
+   
+   git add * <-|______|-> git reset .
+   git status
+   git commit -m "..."
+   git push origin main
+   
+*/
