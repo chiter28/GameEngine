@@ -1,4 +1,7 @@
+
+#include "hzpch.h"
 #include "Application.h"
+
 #include "Events/KeyEvent.h"
 #include "Log.h"
 
@@ -15,7 +18,7 @@ namespace Hazel
 
 	void Application::Run()
 	{
-		KeyPressedEvent key(12, 0);
+		KeyPressedEvent key(12, 0); 
 		HZ_INFO(key);
 
 		while (true);
