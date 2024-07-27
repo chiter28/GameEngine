@@ -3,9 +3,6 @@
 #include "Core.h"
 #include "spdlog/spdlog.h"
 
-#include "spdlog/fmt/ostr.h" // must be included
-#include "spdlog/sinks/stdout_sinks.h"
-
 namespace Hazel
 {
 

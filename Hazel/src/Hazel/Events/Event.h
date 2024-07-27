@@ -14,7 +14,7 @@ namespace Hazel
 	};
 
 	// Categories
-	enum EventCategoty
+	enum EventCategory
 	{
 		None = 0,
 		EventCategoryApplication = BIT(0),
@@ -22,14 +22,9 @@ namespace Hazel
 		EventCategoryKeyboard    = BIT(2),
 		EventCategoryMouse       = BIT(3),
 		EventCategoryMouseButton = BIT(4)
+
 	};
 
-// macros
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
-							   EventType GetEventType() const override { return GetStaticType(); }\
-							   const char* GetName() const override { return #type; }
-
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
 	// Parent Event
 	class HAZEL_API Event
@@ -41,7 +36,7 @@ namespace Hazel
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategoty category)
+		inline bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
 		}
@@ -74,10 +69,21 @@ namespace Hazel
 		Event& m_Event;
 	};
 
-	// For Loggin
-	std::string format_as(const Event& e)
+	//// For Loggin an Event
+	template<typename T>
+	struct fmt::formatter<T, std::enable_if_t<std::is_base_of_v<Hazel::Event, T>, char>> : fmt::formatter<std::string>
 	{
-		return e.ToString();
-	}
-		
+		auto format(const Hazel::Event& a, format_context& ctx) const
+		{
+			return formatter<std::string>::format(a.ToString(), ctx);
+		}
+	};
+
+// macros
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
+							   EventType GetEventType() const override { return GetStaticType(); }\
+							   const char* GetName() const override { return #type; }
+
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+
 }

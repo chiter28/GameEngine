@@ -33,12 +33,11 @@ namespace Hazel
 	{
 	public:
 		WindowCloseEvent() {}
-		
 		EVENT_CLASS_TYPE(WindowClose)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	// WindowFocus, WindowLostFocus, WindowMoved
+	// WindowFocus, WindowLostFocus, WindowMoved (abstruct classes(can't create))
 	class HAZEL_API WindowFocusEvent : public Event {};
 	class HAZEL_API WindowLostFocusEvent : public Event {};
 	class HAZEL_API WindowMovedEvent : public Event {};
@@ -72,3 +71,6 @@ namespace Hazel
 	};
 
 }
+
+
+

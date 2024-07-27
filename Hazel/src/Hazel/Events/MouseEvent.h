@@ -85,6 +85,7 @@ namespace Hazel
 	// MouseButtonReleased
 	class HAZEL_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
+	public:
 		MouseButtonReleasedEvent(int button)
 			: MouseButtonEvent{button} {}
 		
