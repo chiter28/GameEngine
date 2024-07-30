@@ -5,6 +5,9 @@
 #include "Hazel/Events/KeyEvent.h"
 #include "Hazel/Events/MouseEvent.h"
 
+#include "glad/glad.h"
+
+
 namespace Hazel
 {
 	static bool s_GLFWInitialized = false;
@@ -37,13 +40,18 @@ namespace Hazel
 					HZ_CORE_ERROR("GLFW Error {0}: ({1})", error_code, description);
 				});
 
-			HZ_CORE_ASSERT(success, "Could not initialize GLFW");
+			HZ_CORE_ASSERT(success, "Could not initialize GLFW")
 
 			s_GLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		// Glad
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		HZ_CORE_ASSERT(status, "Failed to initialize Glad!")
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -72,7 +80,8 @@ namespace Hazel
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods) 
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				
+				static int prevAction = 0;
+				static int count = 0;
 				switch (action) 
 				{
 					case GLFW_PRESS:
@@ -89,11 +98,15 @@ namespace Hazel
 					}
 					case GLFW_REPEAT:
 					{
-						KeyPressedEvent event(key, 1);
+						if (prevAction == GLFW_PRESS)
+							count = 0;
+						KeyPressedEvent event(key, count++);
 						data.EventCallback(event);
 						break;
 					}
 				}
+				prevAction = action;
+
 			});
 		
 		// MouseButton

@@ -13,8 +13,8 @@
 
 // ASSERT
 #ifdef HZ_ANABLE_ASSERTS
-	#define HZ_ASSERT(x, ...) if(!(x)) { HZ_ERROR("ASSERT: {0}", _VA_ARGS__); debugbrake(); }
-	#define HZ_CORE_ASSERT(x, ...) if(!(x)) { HZ_CORE_ERROR("ASSERT: {0}", _VA_ARGS__); debugbrake(); }
+	#define HZ_ASSERT(x, ...) if(!(x)) { HZ_ERROR("ASSERT: {0}", __VA_ARGS__); __debugbreak(); }
+	#define HZ_CORE_ASSERT(x, ...) if(!(x)) { HZ_CORE_ERROR("ASSERT: {0}", __VA_ARGS__); __debugbreak(); }
 #else
 	#define HZ_ASSERT(x, ...)
 	#define HZ_CORE_ASSERT(x, ...)

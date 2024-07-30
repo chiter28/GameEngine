@@ -51,6 +51,9 @@ namespace Hazel
 			ss << "KeyReleasedEvent: " << m_KeyCode;
 			return ss.str();
 		}
+
+		const int& GetCode() { return m_KeyCode; }
+
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
