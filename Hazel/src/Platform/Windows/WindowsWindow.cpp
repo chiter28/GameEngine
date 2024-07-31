@@ -48,14 +48,14 @@ namespace Hazel
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
 
-		// Glad
+		// Glad Init
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		HZ_CORE_ASSERT(status, "Failed to initialize Glad!")
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
-		// Set GLFW callbacks
+		// Set Event callbacks
 		 
 		// WindowResize
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) 

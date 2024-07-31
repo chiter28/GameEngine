@@ -1,5 +1,5 @@
-
 #include "hzpch.h"
+
 #include "Application.h"
 #include "Events/KeyEvent.h"
 
@@ -9,13 +9,17 @@ namespace Hazel
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
+		s_Instance = this;
+
 		m_WindowApp = std::unique_ptr<Window>(Window::Create());
 		m_WindowApp->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		unsigned int id;
-		glGenVertexArrays(1, &id);
+		
 	}
 
 	Application::~Application()
@@ -28,12 +32,13 @@ namespace Hazel
 		while (m_Running) {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
-			m_WindowApp->OnUpdate();
-		
-			
 			for (Layer* later : m_LayerStack) {
 				later->OnUpdate(); // Not working yet
 			}
+			
+			m_WindowApp->OnUpdate();
+		
+			
 		}
 	}
 
@@ -64,12 +69,16 @@ namespace Hazel
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
+
 	}
 
 	// Push (Overlay)
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
+
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

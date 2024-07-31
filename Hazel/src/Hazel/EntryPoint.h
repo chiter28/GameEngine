@@ -8,6 +8,7 @@ int main(int argc, char** argv)
 	HZ_WARN("Initialized Log");
 
 
+
 	Hazel::Application* app = Hazel::CreateApplication();
 	app->Run();
 

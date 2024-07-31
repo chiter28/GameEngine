@@ -17,23 +17,7 @@ public:
 	}
 };
 
-class AO : public Hazel::Layer
-{
-public:
-	AO()
-		: Layer("AO")
-	{}
 
-	void OnUpdate() override
-	{
-		HZ_INFO("AO::Update");
-	}
-
-	void OnEvent(Hazel::Event& event) override
-	{
-		HZ_TRACE("AO: {0}", event);
-	}
-};
 
 class Sandbox : public Hazel::Application
 {
@@ -41,8 +25,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushLayer(new AO());
-		PushOverlay(new AO());
+		PushOverlay(new Hazel::ImGuiLayer());
 	}
 
 };
