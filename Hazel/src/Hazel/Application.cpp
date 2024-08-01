@@ -7,7 +7,6 @@
 
 namespace Hazel
 {
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
 
@@ -17,7 +16,7 @@ namespace Hazel
 		s_Instance = this;
 
 		m_WindowApp = std::unique_ptr<Window>(Window::Create());
-		m_WindowApp->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_WindowApp->SetEventCallback(HZ_BIND_EVENT_FN(Application::OnEvent));
 
 		
 	}
@@ -37,7 +36,7 @@ namespace Hazel
 			}
 			
 			m_WindowApp->OnUpdate();
-		
+		 
 			
 		}
 	}
@@ -46,11 +45,14 @@ namespace Hazel
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(HZ_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<KeyReleasedEvent>([this](KeyReleasedEvent& e) {
-			if (e.GetCode() == 68) {
-				m_LayerStack.PopLayer(*m_LayerStack.begin());
+			if (e.GetCode() == 256 && m_LayerStack.begin() != m_LayerStack.end()) {
+				auto a = m_LayerStack.begin();
+				m_LayerStack.PopLayer(*a);
 				return true;
+			} else if (e.GetCode() == 256) {
+				HZ_CORE_ASSERT(false, "Can't delete any layer - LayerStack empty!");
 			}
 			});
 		
