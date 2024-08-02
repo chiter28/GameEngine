@@ -9,7 +9,7 @@
 namespace Hazel
 {
 
-	 class HAZEL_API Application
+	class HAZEL_API Application
 	{
 	public:
 		Application();
@@ -31,11 +31,11 @@ namespace Hazel
 		std::unique_ptr<Window> m_WindowApp;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-	
+
 	private:
 		static Application* s_Instance;
 	};
 
-	 // To be defined in CLIENT
-	 Application* CreateApplication();
+	// To be defined in CLIENT
+	Application* CreateApplication();
 }

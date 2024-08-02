@@ -2,12 +2,15 @@
 
 #include "Application.h"
 #include "Events/KeyEvent.h"
+#include "Platform/Windows/WindowsInput.h"
 
 #include "glad/glad.h"
 
+#define GLFW_KEY_L 76
+
 namespace Hazel
 {
-
+	
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
@@ -31,13 +34,14 @@ namespace Hazel
 		while (m_Running) {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
 			for (Layer* later : m_LayerStack) {
 				later->OnUpdate(); // Not working yet
 			}
 			
 			m_WindowApp->OnUpdate();
-		 
-			
+
+
 		}
 	}
 
@@ -56,7 +60,7 @@ namespace Hazel
 			}
 			});
 		
-		HZ_CORE_TRACE(e);
+		//HZ_CORE_TRACE(e);
 	
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
 			(*--it)->OnEvent(e);
