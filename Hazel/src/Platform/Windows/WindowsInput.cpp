@@ -8,6 +8,7 @@ namespace Hazel
 {
 	Input* Input::s_Instance = new WindowsInput();
 
+	// IsKeyPressed
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
@@ -15,6 +16,7 @@ namespace Hazel
 		return state == GLFW_PRESS;
 	}
 	
+	// IsMouseButtonPressed
 	bool WindowsInput::IsMouseButtonPressedImpl(int button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
@@ -22,6 +24,7 @@ namespace Hazel
 		return state == GLFW_PRESS;
 	}
 
+	// GetMousePosition
 	std::pair<float, float> WindowsInput::GetMousePositionImpl()
 	{
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
@@ -30,12 +33,14 @@ namespace Hazel
 		return {xpos, ypos};
 	}
 
+	// MouseX
 	float WindowsInput::GetMouseXImpl()
 	{
 		auto [x, y] = GetMousePositionImpl();
 		return x;
 	}
 
+	// MouseY
 	float WindowsInput::GetMouseYImpl()
 	{
 		auto [x, y] = GetMousePositionImpl();

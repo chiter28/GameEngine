@@ -6,6 +6,8 @@
 
 #include "glad/glad.h"
 
+#include "glm/glm.hpp"
+
 #define GLFW_KEY_L 76
 
 namespace Hazel
