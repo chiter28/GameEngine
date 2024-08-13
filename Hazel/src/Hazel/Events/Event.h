@@ -63,7 +63,7 @@ namespace Hazel
 				return true;
 			}
 			return false;
-		}
+		}	
 
 	private:
 		Event& m_Event;

@@ -1,6 +1,7 @@
 #pragma once
 
 // From GLFW
+
 /* Printable keys */
 #define HZ_KEY_SPACE              32
 #define HZ_KEY_APOSTROPHE         39  /* ' */

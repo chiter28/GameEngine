@@ -30,7 +30,7 @@ namespace Hazel
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
-		return {xpos, ypos};
+		return {(float)xpos, (float)ypos};
 	}
 
 	// MouseX
